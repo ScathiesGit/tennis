@@ -33,3 +33,6 @@ build/
 .vscode/
 
 .gitignore
+.mvn
+mvnw
+mvnw.cmd
