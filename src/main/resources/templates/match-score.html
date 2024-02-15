@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Счёт матча</title>
+</head>
+<body>
+<h2>Счёт матча</h2>
+<table border="1">
+    <tr>
+        <th>Имя игрока</th>
+        <th>Текущий счёт</th>
+    </tr>
+    <tr>
+        <td>Игрок 1</td>
+        <td>0</td>
+    </tr>
+    <tr>
+        <td>Игрок 2</td>
+        <td>0</td>
+    </tr>
+</table>
+<br>
+<form action="/match-score" method="post">
+    <input type="hidden" name="uuid" value="$match_id">
+    <input type="hidden" name="winner" value="1">
+    <button type="submit">Игрок 1 выиграл текущее очко</button>
+</form>
+<form action="/match-score" method="post">
+    <input type="hidden" name="uuid" value="$match_id">
+    <input type="hidden" name="winner" value="2">
+    <button type="submit">Игрок 2 выиграл текущее очко</button>
+</form>
+</body>
+</html>
