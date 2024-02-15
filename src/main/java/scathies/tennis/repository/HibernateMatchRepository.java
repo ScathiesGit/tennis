@@ -26,8 +26,8 @@ public class HibernateMatchRepository implements MatchRepository {
     public List<Match> findAllByPlayerName(Integer page, Integer pageSize, String playerName) {
         return executor.executeQuery(
                 session -> session.createQuery(
-                                "select m from Match m join m.player1 join m.player2 " +
-                                        "where m.player1 = :playerName1 or m.player2 = :playerName2", Match.class
+                                "select m from Match m join m.player1 join m.player2 "
+                                        + "where m.player1 = :playerName1 or m.player2 = :playerName2", Match.class
                         ).setParameter("playerName1", playerName)
                         .setParameter("playerName2", playerName)
                         .setFirstResult((page - 1) * pageSize + 1)
