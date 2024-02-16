@@ -15,6 +15,6 @@ import java.util.Properties;
 public class TennisApplication {
 
     public static void main(String[] args) {
-        var context = SpringApplication.run(TennisApplication.class, args);
+        SpringApplication.run(TennisApplication.class, args);
     }
 }
