@@ -4,13 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import scathies.tennis.service.FinishedMatchService;
 import scathies.tennis.service.FinishedMatchServiceImpl;
 
 @Controller
 @RequiredArgsConstructor
 public class MatchesController {
 
-    private final FinishedMatchServiceImpl matchesService;
+    private final FinishedMatchService matchesService;
 
     @GetMapping("/matches")
     public String matches(@RequestParam(required = false, defaultValue = "1") Integer page,

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ScoringServiceImpl {
+public class ScoringServiceImpl implements ScoringService {
 
     private final RealtimeMatches realtimeMatches;
 

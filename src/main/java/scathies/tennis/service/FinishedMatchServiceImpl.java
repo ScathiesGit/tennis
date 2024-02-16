@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class FinishedMatchServiceImpl {
+public class FinishedMatchServiceImpl implements FinishedMatchService {
 
     private final MatchRepository matchRepository;
 

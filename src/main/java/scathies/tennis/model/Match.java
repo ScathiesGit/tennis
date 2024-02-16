@@ -14,6 +14,7 @@ import java.util.UUID;
 public class Match {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @ManyToOne

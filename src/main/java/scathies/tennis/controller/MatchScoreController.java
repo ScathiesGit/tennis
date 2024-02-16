@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import scathies.tennis.service.MatchServiceImpl;
+import scathies.tennis.service.ScoringService;
 import scathies.tennis.service.ScoringServiceImpl;
 
 import java.util.UUID;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MatchScoreController {
 
-    private final ScoringServiceImpl scoringService;
+    private final ScoringService scoringService;
 
     @GetMapping("/match-score")
     public String getMatchScore(@RequestParam(name = "UUID") UUID id) {

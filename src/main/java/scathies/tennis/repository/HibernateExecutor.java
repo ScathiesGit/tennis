@@ -1,5 +1,6 @@
 package scathies.tennis.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -9,15 +10,10 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class HibernateExecutor {
 
-    private static final SessionFactory SESSION_FACTORY;
-
-    static {
-        var config = new Configuration();
-        config.configure();
-        SESSION_FACTORY = config.buildSessionFactory();
-    }
+    private final SessionFactory SESSION_FACTORY;
 
     public <T> T executeQuery(Function<Session, T> function) {
         T result;

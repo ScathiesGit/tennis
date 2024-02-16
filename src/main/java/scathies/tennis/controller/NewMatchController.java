@@ -4,13 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import scathies.tennis.service.MatchService;
 import scathies.tennis.service.MatchServiceImpl;
 
 @Controller
 @RequiredArgsConstructor
 public class NewMatchController {
 
-    private final MatchServiceImpl matchService;
+    private final MatchService matchService;
 
     @GetMapping("/new-match")
     public String getNewMatch() {
