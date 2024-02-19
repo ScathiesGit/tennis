@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         <tr th:each="match : ${matches}">
-            <td th:text="${match.id}">id match</td>
+            <td th:text="*{id}">id match</td>
             <td th:text="${match.player1.name + ' ' + match.player1.id}">id player1</td>
             <td th:text="${match.player2.name + ' ' + match.player2.id}">id player2</td>
             <td th:text="${match.idWinner}">id winner</td>

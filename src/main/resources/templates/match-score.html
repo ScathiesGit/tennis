@@ -25,15 +25,23 @@
     </tr>
 </table>
 <br>
-<form action="/match-score" method="post">
-    <input type="hidden" name="uuid" value="$match_id">
-    <input type="hidden" name="winner" value="1">
-    <button type="submit">Игрок 1 выиграл текущее очко</button>
-</form>
-<form action="/match-score" method="post">
-    <input type="hidden" name="uuid" value="$match_id">
-    <input type="hidden" name="winner" value="2">
-    <button type="submit">Игрок 2 выиграл текущее очко</button>
-</form>
+<div th:if="${match.idWinner} == null">
+    <form action="/match-score" method="post">
+        <input type="hidden" name="playerId" th:value="${match.player1.id}">
+        <input type="hidden" name="matchId" th:value="${uuid}">
+        <button type="submit">Игрок 1 выиграл текущее очко</button>
+    </form>
+    <form action="/match-score" method="post">
+        <input type="hidden" name="playerId" th:value="${match.player2.id}">
+        <input type="hidden" name="matchId" th:value="${uuid}">
+        <button type="submit">Игрок 2 выиграл текущее очко</button>
+    </form>
+</div>
+<div th:if="${match.idWinner} != null">
+    <label th:if="${match.idWinner == match.player1.id}" th:text="${'win: ' + match.player1.name}"></label><br>
+    <label th:if="${match.idWinner == match.player2.id}" th:text="${'win: ' + match.player2.name}"></label><br>
+    <a href="/new-match">Создать новый матч</a><br>
+    <a href="/">Вернуться на главную страницу</a>
+</div>
 </body>
 </html>

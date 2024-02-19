@@ -49,7 +49,7 @@ public class ScoringServiceImpl implements ScoringService {
     private boolean isGameContinue(Match match) {
         var difference = Math.abs(match.getGameScorePlayer2() - match.getGameScorePlayer1());
         var maxScore = Math.max(match.getGameScorePlayer2(), match.getGameScorePlayer1());
-        return !(difference == DIFFERENCE_POINT_WIN_GAME
+        return !(difference >= DIFFERENCE_POINT_WIN_GAME
                 && (maxScore >= NUMBER_POINT_WIN_GAME_TIEBREAK && match.isTiebreak()
                 || maxScore >= NUMBER_POINT_WIN_GAME));
     }
