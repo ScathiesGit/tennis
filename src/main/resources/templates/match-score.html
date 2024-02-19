@@ -10,15 +10,18 @@
 <table border="1">
     <tr>
         <th>Имя игрока</th>
-        <th>Текущий счёт</th>
+        <th>Счёт по геймам</th>
+        <th>Счёт по сетам</th>
     </tr>
     <tr>
-        <td>Игрок 1</td>
-        <td>0</td>
+        <td th:text="${match.player1.name}">Игрок 1</td>
+        <td th:text="${match.gameScorePlayer1}">0</td>
+        <td th:text="${match.setScorePlayer1}">0</td>
     </tr>
     <tr>
-        <td>Игрок 2</td>
-        <td>0</td>
+        <td th:text="${match.player2.name}">Игрок 2</td>
+        <td th:text="${match.gameScorePlayer2}">0</td>
+        <td th:text="${match.setScorePlayer2}">0</td>
     </tr>
 </table>
 <br>

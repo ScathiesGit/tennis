@@ -3,6 +3,7 @@ package scathies.tennis.repository;
 import scathies.tennis.model.Match;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface MatchRepository {
 
@@ -10,5 +11,5 @@ public interface MatchRepository {
 
     List<Match> findAllByPlayerName(Integer page, Integer pageSize, String playerName);
 
-    void save(Match match);
+    UUID save(Match match);
 }

@@ -13,8 +13,10 @@ public class FinishedMatchServiceImpl implements FinishedMatchService {
 
     private final MatchRepository matchRepository;
 
+    @Override
     public List<Match> find(Integer page, Integer pageSize, String playerName) {
-        return playerName == null ? matchRepository.findAll(page, pageSize)
+        return playerName == null || playerName.isEmpty()
+                ? matchRepository.findAll(page, pageSize)
                 : matchRepository.findAllByPlayerName(page, pageSize, playerName);
     }
 }

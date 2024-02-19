@@ -1,1 +1,43 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Завершенные матчи</title>
+</head>
+<body>
+<h1>Поиск матчей</h1>
+<form action="/matches" method="post">
+    <label for="page">Номер страницы:</label>
+    <input type="text" id="page" name="page"><br>
+    <label for="pageSize">Количество записей на странице:</label>
+    <input type="text" id="pageSize" name="pageSize"><br>
+    <label for="pName">Имя игрока:</label>
+    <input type="text" id="pName" name="name"><br>
+    <button type="submit">Искать</button>
+</form>
+<div id="matchesList">
+    <table>
+        <thead>
+        <tr>
+            <th>Идентификатор матча</th>
+            <th>Данные первого игрока</th>
+            <th>Данные второго игрока</th>
+            <th>Идентификатор победителя</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="match : ${matches}">
+            <td th:text="${match.id}">id match</td>
+            <td th:text="${match.player1.name + ' ' + match.player1.id}">id player1</td>
+            <td th:text="${match.player2.name + ' ' + match.player2.id}">id player2</td>
+            <td th:text="${match.idWinner}">id winner</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="pagination">
+    <!-- Пагинация будет отображена здесь -->
+</div>
+</body>
+</html>

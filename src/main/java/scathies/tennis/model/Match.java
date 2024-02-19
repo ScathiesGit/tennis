@@ -11,10 +11,11 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Match {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID id;
 
     @ManyToOne

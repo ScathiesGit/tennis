@@ -1,16 +1,19 @@
 package scathies.tennis.configuration;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class HibernateConfig {
 
-    @Bean
+    @Bean(destroyMethod = "close")
     public SessionFactory sessionFactory() {
-        var config = new org.hibernate.cfg.Configuration();
-        config.configure();
-        return config.buildSessionFactory();
+        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
+                .configure().build();
+        return new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 }

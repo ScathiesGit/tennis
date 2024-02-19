@@ -1,8 +1,10 @@
 package scathies.tennis.service;
 
+import scathies.tennis.model.Match;
+
 import java.util.UUID;
 
 public interface ScoringService {
 
-    void processMatch(UUID matchId, Integer playerId);
+    Match processMatch(UUID matchId, Integer playerId);
 }

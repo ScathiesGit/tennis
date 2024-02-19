@@ -20,7 +20,8 @@ public class ScoringServiceImpl implements ScoringService {
     private static final int NUMBER_POINT_WIN_GAME = 6;
     private static final int NUMBER_POINT_WIN_GAME_TIEBREAK = 7;
 
-    public void processMatch(UUID matchId, Integer playerId) {
+    @Override
+    public Match processMatch(UUID matchId, Integer playerId) {
         var match = realtimeMatches.get(matchId);
         if (match.getPlayer1().getId().equals(playerId)) {
             match.setGameScorePlayer1(match.getGameScorePlayer1() + 1);
@@ -28,15 +29,21 @@ public class ScoringServiceImpl implements ScoringService {
             match.setGameScorePlayer2(match.getGameScorePlayer2() + 1);
         }
 
-        if (isGameContinue(match)) {
-            return;
+        if (match.getGameScorePlayer1() == 6 && match.getGameScorePlayer2() == 6) {
+            match.setTiebreak(true);
+            return match;
         }
+        if (isGameContinue(match)) {
+            return match;
+        }
+
         processGameResult(match);
         if (match.getSetScorePlayer1() == 2 || match.getSetScorePlayer2() == 2) {
             match.setIdWinner(playerId);
             realtimeMatches.delete(matchId);
             matchRepository.save(match);
         }
+        return match;
     }
 
     private boolean isGameContinue(Match match) {

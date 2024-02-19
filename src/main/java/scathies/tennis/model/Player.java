@@ -12,6 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@EqualsAndHashCode
 public class Player {
 
     @Id
