@@ -9,11 +9,11 @@
 <h1>Поиск матчей</h1>
 <form action="/matches" method="post">
     <label for="page">Номер страницы:</label>
-    <input type="text" id="page" name="page"><br>
+    <input type="number" id="page" name="page" min="1" th:value="${matchesPage.page}?: 1"><br>
     <label for="pageSize">Количество записей на странице:</label>
-    <input type="text" id="pageSize" name="pageSize"><br>
+    <input type="number" id="pageSize" name="pageSize" min="1" th:value="${matchesPage.pageSize}?: 5"><br>
     <label for="pName">Имя игрока:</label>
-    <input type="text" id="pName" name="name"><br>
+    <input type="text" id="pName" name="name" th:value="${name}?: ''"><br>
     <button type="submit">Искать</button>
 </form>
 <div id="matchesList">
@@ -24,20 +24,34 @@
             <th>Данные первого игрока</th>
             <th>Данные второго игрока</th>
             <th>Идентификатор победителя</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="match : ${matches}">
-            <td th:text="*{id}">id match</td>
-            <td th:text="${match.player1.name + ' ' + match.player1.id}">id player1</td>
+        <tr th:each="match : ${matchesPage.matches}">
+            <td th:text="${match.id}">id match</td>
+            <td th:text="|${match.player1.name} ${match.player1.id}|">id player1</td>
             <td th:text="${match.player2.name + ' ' + match.player2.id}">id player2</td>
             <td th:text="${match.idWinner}">id winner</td>
         </tr>
         </tbody>
     </table>
-</div>
-<div id="pagination">
-    <!-- Пагинация будет отображена здесь -->
+
+    <div th:if="${matchesPage.totalSize != null}">
+        <span>Страницы:</span>
+        <th:block th:with="totalPages=${(matchesPage.totalSize + matchesPage.pageSize - 1) / matchesPage.pageSize}">
+            <div style="display: flex;">
+                <th:block th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+                    <form action="/matches" method="post">
+                        <input type="hidden" name="name" th:value="${name}">
+                        <input type="hidden" name="page" th:value="${pageNumber}">
+                        <input type="hidden" name="pageSize" th:value="${matchesPage.pageSize}">
+                        <button type="submit" th:text="${pageNumber}"></button>
+                    </form>
+                </th:block>
+            </div>
+        </th:block>
+    </div>
 </div>
 </body>
 </html>

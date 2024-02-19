@@ -42,4 +42,25 @@ public class HibernateMatchRepository implements MatchRepository {
         executor.execute(session -> session.persist(match));
         return match.getId();
     }
+
+    @Override
+    public long numberMatches(String name) {
+        var count = 0L;
+        if (name == null || name.isEmpty()) {
+            count = executor.executeQuery(
+                    session -> session.createQuery(
+                            "select COUNT(m) from Match m", Long.class
+                    ).uniqueResult()
+            );
+        } else {
+            count = executor.executeQuery(
+                    session -> session.createQuery(
+                                    "select COUNT(*) from Match m join m.player1 join m.player2 "
+                                            + "where m.player1.name = :playerName or m.player2.name = :playerName", Long.class
+                            ).setParameter("playerName", name)
+                            .uniqueResult()
+            );
+        }
+        return count;
+    }
 }

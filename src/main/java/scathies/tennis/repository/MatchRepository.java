@@ -12,4 +12,6 @@ public interface MatchRepository {
     List<Match> findAllByPlayerName(Integer page, Integer pageSize, String playerName);
 
     UUID save(Match match);
+
+    long numberMatches(String name);
 }
