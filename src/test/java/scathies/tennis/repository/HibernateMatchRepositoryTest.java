@@ -1,8 +1,6 @@
 package scathies.tennis.repository;
 
 import configuration.HibernateTestConfiguration;
-import configuration.DatabaseSchemaCreator;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,11 +33,6 @@ class HibernateMatchRepositoryTest {
     private Match match2 = new Match();
 
     private Match match3 = new Match();
-
-//    @BeforeAll
-//    static void createDatabase() {
-//        DatabaseSchemaCreator.executeSqlScripts();
-//    }
 
     @BeforeEach
     void setUp() {

@@ -36,4 +36,7 @@ build/
 .mvn
 mvnw
 mvnw.cmd
-теория
+theory.txt
+testdb.mv.db
+testdb.trace.db
+

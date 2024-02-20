@@ -1,7 +1,6 @@
 package scathies.tennis.repository;
 
 import configuration.HibernateTestConfiguration;
-import configuration.DatabaseSchemaCreator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,14 +13,8 @@ class HibernatePlayerRepositoryTest {
     private HibernateExecutor executor = new HibernateExecutor(new HibernateTestConfiguration().getSessionFactory());
     private PlayerRepository playerRepository = new HibernatePlayerRepository(executor);
 
-    @BeforeAll
-    static void createSchema() {
-
-    }
-
     @BeforeEach
     void setUp() {
-//        DatabaseSchemaCreator.executeSqlScripts();
         var players = executor.executeQuery(
                 session -> session.createQuery("select p from Player p", Player.class)
                         .list()
