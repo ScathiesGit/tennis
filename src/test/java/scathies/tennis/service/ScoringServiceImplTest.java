@@ -29,7 +29,6 @@ class ScoringServiceImplTest {
     private final Player player1 = new Player(1, "P1");
     private final Player player2 = new Player(2, "P2");
     private final Match match = Match.builder()
-            .id(UUID.randomUUID())
             .player1(player1)
             .player2(player2)
             .build();
@@ -42,7 +41,7 @@ class ScoringServiceImplTest {
         match.setGameScorePlayer2(6);
         doReturn(match).when(realtimeMatches).get(any());
 
-        scoringService.processMatch(match.getId(), player2.getId());
+        scoringService.processMatch(UUID.randomUUID(), player2.getId());
 
         assertAll(
                 () -> assertThat(match).extracting("GameScorePlayer1").isEqualTo(0),
@@ -60,7 +59,7 @@ class ScoringServiceImplTest {
         match.setTiebreak(true);
         doReturn(match).when(realtimeMatches).get(any());
 
-        scoringService.processMatch(match.getId(), player2.getId());
+        scoringService.processMatch(UUID.randomUUID(), player2.getId());
 
         assertAll(
                 () -> assertThat(match).extracting("GameScorePlayer1").isEqualTo(0),
@@ -78,7 +77,7 @@ class ScoringServiceImplTest {
         match.setGameScorePlayer2(6);
         doReturn(match).when(realtimeMatches).get(any());
 
-        scoringService.processMatch(match.getId(), player1.getId());
+        scoringService.processMatch(UUID.randomUUID(), player1.getId());
 
         assertAll(
                 () -> assertTrue(match.isTiebreak()),
@@ -95,7 +94,7 @@ class ScoringServiceImplTest {
         match.setGameScorePlayer2(7);
         doReturn(match).when(realtimeMatches).get(any());
 
-        scoringService.processMatch(match.getId(), player1.getId());
+        scoringService.processMatch(UUID.randomUUID(), player1.getId());
 
         assertAll(
                 () -> assertThat(match).extracting("setScorePlayer1").isEqualTo(0),
@@ -112,7 +111,7 @@ class ScoringServiceImplTest {
         match.setGameScorePlayer2(6);
         doReturn(match).when(realtimeMatches).get(any());
 
-        scoringService.processMatch(match.getId(), player2.getId());
+        scoringService.processMatch(UUID.randomUUID(), player2.getId());
 
         assertThat(match).extracting("idWinner").isEqualTo(player2.getId());
     }

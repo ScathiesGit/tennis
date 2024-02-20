@@ -26,9 +26,8 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public UUID create(String playerName1, String playerName2) {
         var id = UUID.randomUUID();
-        realtimeMatches.add(
+        realtimeMatches.add(id,
                 Match.builder()
-                        .id(id)
                         .player1(handlePlayer(playerName1))
                         .player2(handlePlayer(playerName2))
                         .build()

@@ -14,8 +14,8 @@ public class RealtimeMatches {
         return matches.get(id);
     }
 
-    public void add(Match match) {
-        matches.put(match.getId(), match);
+    public void add(UUID id, Match match) {
+        matches.put(id, match);
     }
 
     public boolean delete(UUID id) {

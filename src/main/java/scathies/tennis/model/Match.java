@@ -16,7 +16,8 @@ import java.util.UUID;
 public class Match {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "id_player_1")

@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: /db/sql/01_ddl_create_table_player.sql
+  - include:
+      file: /db/sql/02_ddl_create_table_match.sql

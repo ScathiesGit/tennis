@@ -23,9 +23,9 @@ public class FinishedMatchServiceImpl implements FinishedMatchService {
         return MatchesPage.builder()
                 .page(page)
                 .pageSize(pageSize)
-                .totalSize(matchRepository.numberMatches(
-                        playerName == null || playerName.isEmpty() ? "" : playerName
-                ))
+                .totalSize(
+                        matchRepository.numberMatches(playerName)
+                )
                 .matches(matches)
                 .build();
     }

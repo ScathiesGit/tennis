@@ -1,9 +1,9 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/01_ddl_create_table_player.sql
+      file: /db/sql/01_ddl_create_table_player.sql
   - include:
-      file: db/changelog/02_ddl_create_table_match.sql
+      file: /db/sql/02_ddl_create_table_match.sql
   - include:
-      file: db/changelog/03_dml_insert_players.sql
+      file: /db/sql/03_dml_insert_players.sql
   - include:
-      file: db/changelog/04_dml_insert_matches.sql
+      file: /db/sql/04_dml_insert_matches.sql

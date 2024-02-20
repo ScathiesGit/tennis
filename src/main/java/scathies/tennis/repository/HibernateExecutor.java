@@ -1,5 +1,6 @@
 package scathies.tennis.repository;
 
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -30,5 +31,10 @@ public class HibernateExecutor {
             consumer.accept(session);
             session.getTransaction().commit();
         }
+    }
+
+    @PreDestroy
+    public void destroy() {
+        sessionFactory.close();
     }
 }

@@ -6,5 +6,5 @@ spring:
     password: postgres
 
   liquibase:
-    change-log: classpath:db/changelog/changelog-master.yaml
+    change-log: db/changelog/changelog-master.yaml
     enabled: true
