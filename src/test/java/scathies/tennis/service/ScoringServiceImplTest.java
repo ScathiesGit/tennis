@@ -7,7 +7,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import scathies.tennis.model.Match;
 import scathies.tennis.model.Player;
-import scathies.tennis.model.RealtimeMatches;
 import scathies.tennis.repository.MatchRepository;
 
 import java.util.UUID;
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.doReturn;
 class ScoringServiceImplTest {
 
     @Mock
-    private RealtimeMatches realtimeMatches;
+    private MatchService matchService;
     @Mock MatchRepository matchRepository;
     @InjectMocks
     private ScoringServiceImpl scoringService;
@@ -39,7 +38,7 @@ class ScoringServiceImplTest {
         match.setSetScorePlayer2(0);
         match.setGameScorePlayer1(5);
         match.setGameScorePlayer2(6);
-        doReturn(match).when(realtimeMatches).get(any());
+        doReturn(match).when(matchService).get(any());
 
         scoringService.processMatch(UUID.randomUUID(), player2.getId());
 
@@ -57,7 +56,7 @@ class ScoringServiceImplTest {
         match.setGameScorePlayer1(7);
         match.setGameScorePlayer2(8);
         match.setTiebreak(true);
-        doReturn(match).when(realtimeMatches).get(any());
+        doReturn(match).when(matchService).get(any());
 
         scoringService.processMatch(UUID.randomUUID(), player2.getId());
 
@@ -75,7 +74,7 @@ class ScoringServiceImplTest {
         match.setSetScorePlayer2(0);
         match.setGameScorePlayer1(5);
         match.setGameScorePlayer2(6);
-        doReturn(match).when(realtimeMatches).get(any());
+        doReturn(match).when(matchService).get(any());
 
         scoringService.processMatch(UUID.randomUUID(), player1.getId());
 
@@ -92,7 +91,7 @@ class ScoringServiceImplTest {
         match.setSetScorePlayer2(0);
         match.setGameScorePlayer1(7);
         match.setGameScorePlayer2(7);
-        doReturn(match).when(realtimeMatches).get(any());
+        doReturn(match).when(matchService).get(any());
 
         scoringService.processMatch(UUID.randomUUID(), player1.getId());
 
@@ -109,7 +108,7 @@ class ScoringServiceImplTest {
         match.setSetScorePlayer2(1);
         match.setGameScorePlayer1(5);
         match.setGameScorePlayer2(6);
-        doReturn(match).when(realtimeMatches).get(any());
+        doReturn(match).when(matchService).get(any());
 
         scoringService.processMatch(UUID.randomUUID(), player2.getId());
 

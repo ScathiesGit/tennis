@@ -27,14 +27,15 @@ public class MatchScoreController {
     @GetMapping
     public String getMatchScore(@RequestParam(name = "UUID") UUID id,
                                 Model model) {
-        model.addAttribute("id", id);
+
+        model.addAttribute("uuid", id);
         model.addAttribute("match", matchService.get(id));
         return "match-score";
     }
 
     @PostMapping
     public String updateMatch(UUID matchId, Integer playerId, Model model) {
-        model.addAttribute("id", matchId);
+        model.addAttribute("uuid", matchId);
         model.addAttribute("match", scoringService.processMatch(matchId, playerId));
         return "match-score";
     }

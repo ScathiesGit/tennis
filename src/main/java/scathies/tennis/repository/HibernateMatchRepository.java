@@ -49,16 +49,20 @@ public class HibernateMatchRepository implements MatchRepository {
     }
 
     @Override
-    public long numberMatches(String name) {
-        Function<Session, Long> func = (name == null || name.isEmpty())
-                ? session -> session.createQuery("select COUNT(m) from Match m", Long.class).uniqueResult()
-                : session -> session.createQuery(
-                        "select COUNT(*) from Match m join m.player1 join m.player2"
-                                + " where m.player1.name = :playerName or m.player2.name = :playerName", Long.class
-                )
-                .setParameter("playerName", name)
-                .uniqueResult();
+    public long numberMatches() {
+        return executor.executeQuery(
+                session -> session.createQuery("select COUNT(m) from Match m", Long.class)
+                        .uniqueResult()
+        );
+    }
 
-        return executor.executeQuery(func);
+    @Override
+    public long numberMatchesByName(String name) {
+        return executor.executeQuery(
+                session -> session.createQuery("select COUNT(*) from Match m join m.player1 join m.player2"
+                                + " where m.player1.name = :playerName or m.player2.name = :playerName", Long.class
+                        ).setParameter("playerName", name)
+                        .uniqueResult()
+        );
     }
 }

@@ -13,5 +13,7 @@ public interface MatchRepository {
 
     int save(Match match);
 
-    long numberMatches(String name);
+    long numberMatches();
+
+    long numberMatchesByName(String name);
 }

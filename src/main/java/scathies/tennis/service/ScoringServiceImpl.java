@@ -3,7 +3,6 @@ package scathies.tennis.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import scathies.tennis.model.Match;
-import scathies.tennis.model.RealtimeMatches;
 import scathies.tennis.repository.MatchRepository;
 
 import java.util.UUID;
@@ -12,7 +11,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ScoringServiceImpl implements ScoringService {
 
-    private final RealtimeMatches realtimeMatches;
+    private final MatchService matchService;
 
     private final MatchRepository matchRepository;
 
@@ -22,7 +21,7 @@ public class ScoringServiceImpl implements ScoringService {
 
     @Override
     public Match processMatch(UUID matchId, Integer playerId) {
-        var match = realtimeMatches.get(matchId);
+        var match = matchService.get(matchId);
         if (match.getPlayer1().getId().equals(playerId)) {
             match.setGameScorePlayer1(match.getGameScorePlayer1() + 1);
         } else {
@@ -40,7 +39,7 @@ public class ScoringServiceImpl implements ScoringService {
         processGameResult(match);
         if (match.getSetScorePlayer1() == 2 || match.getSetScorePlayer2() == 2) {
             match.setIdWinner(playerId);
-            realtimeMatches.delete(matchId);
+            matchService.delete(matchId);
             matchRepository.save(match);
         }
         return match;

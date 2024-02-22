@@ -109,14 +109,14 @@ class HibernateMatchRepositoryTest {
     }
 
     @Test
-    void givenNotEmptyNameWhenNumberMatchesThenReturnNumberMatchesForPlayerName() {
+    void givenNotEmptyNameWhenNumberMatchesByNameThenReturnNumberMatchesForPlayerName() {
         player1 = playerRepository.save("P1");
         player2 = playerRepository.save("P2");
         player3 = playerRepository.save("P3");
         saveMatch(match1, player1, player2, player1.getId());
         saveMatch(match2, player1, player3, player3.getId());
 
-        var numberMatches = matchRepository.numberMatches("P1");
+        var numberMatches = matchRepository.numberMatchesByName("P1");
 
         assertThat(numberMatches).isEqualTo(2);
     }
@@ -130,7 +130,7 @@ class HibernateMatchRepositoryTest {
         saveMatch(match2, player2, player3, player3.getId());
         saveMatch(match3, player1, player3, player3.getId());
 
-        var numberMatches = matchRepository.numberMatches("");
+        var numberMatches = matchRepository.numberMatches();
 
         assertThat(numberMatches).isEqualTo(3);
     }

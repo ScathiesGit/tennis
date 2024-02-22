@@ -11,4 +11,6 @@ public interface MatchService {
 
     UUID create(String playerName1, String playerName2);
 
+    void delete(UUID id);
+
 }

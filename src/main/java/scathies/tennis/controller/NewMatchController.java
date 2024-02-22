@@ -16,8 +16,8 @@ public class NewMatchController {
     private final MatchService matchService;
 
     @GetMapping
-    public String getNewMatch() {
-        return "new-match";
+    public String getNewMatchForm() {
+        return "new-match-form";
     }
 
     @PostMapping

@@ -7,6 +7,8 @@ import scathies.tennis.model.Match;
 import scathies.tennis.repository.MatchRepository;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
@@ -16,17 +18,22 @@ public class FinishedMatchServiceImpl implements FinishedMatchService {
 
     @Override
     public MatchesPage find(Integer page, Integer pageSize, String playerName) {
-        var matches = playerName == null || playerName.isEmpty()
-                ? matchRepository.findAll(page, pageSize)
-                : matchRepository.findAllByPlayerName(page, pageSize, playerName);
-
-        return MatchesPage.builder()
-                .page(page)
-                .pageSize(pageSize)
-                .totalSize(
-                        matchRepository.numberMatches(playerName)
-                )
-                .matches(matches)
-                .build();
+        MatchesPage matchesPage;
+        if (playerName == null || playerName.isEmpty()) {
+            matchesPage = MatchesPage.builder()
+                    .page(page)
+                    .pageSize(pageSize)
+                    .totalSize(matchRepository.numberMatches())
+                    .matches(matchRepository.findAll(page, pageSize))
+                    .build();
+        } else {
+            matchesPage = MatchesPage.builder()
+                    .page(page)
+                    .pageSize(pageSize)
+                    .totalSize(matchRepository.numberMatchesByName(playerName))
+                    .matches(matchRepository.findAllByPlayerName(page, pageSize, playerName))
+                    .build();
+        }
+        return matchesPage;
     }
 }
