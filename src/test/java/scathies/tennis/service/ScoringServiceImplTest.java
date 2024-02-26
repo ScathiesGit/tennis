@@ -5,6 +5,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import scathies.tennis.model.Match;
 import scathies.tennis.model.Player;
 import scathies.tennis.repository.MatchRepository;
@@ -16,17 +18,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doReturn;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class ScoringServiceImplTest {
 
     @Mock
     private MatchService matchService;
-    @Mock MatchRepository matchRepository;
+
+    @Mock
+    MatchRepository matchRepository;
+
     @InjectMocks
     private ScoringServiceImpl scoringService;
 
     private final Player player1 = new Player(1, "P1");
+
     private final Player player2 = new Player(2, "P2");
+
     private final Match match = Match.builder()
             .player1(player1)
             .player2(player2)

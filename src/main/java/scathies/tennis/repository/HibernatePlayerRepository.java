@@ -22,8 +22,7 @@ public class HibernatePlayerRepository implements PlayerRepository {
     }
 
     @Override
-    public Player save(String name) {
-        var player = Player.builder().name(name).build();
+    public Player save(Player player) {
         executor.execute(session -> session.persist(player));
         return player;
     }

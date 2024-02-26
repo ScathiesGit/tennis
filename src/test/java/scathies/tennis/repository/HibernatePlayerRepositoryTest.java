@@ -1,17 +1,21 @@
 package scathies.tennis.repository;
 
 import configuration.HibernateTestConfiguration;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import scathies.tennis.model.Player;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@SpringBootTest
 class HibernatePlayerRepositoryTest {
 
-    private HibernateExecutor executor = new HibernateExecutor(new HibernateTestConfiguration().getSessionFactory());
-    private PlayerRepository playerRepository = new HibernatePlayerRepository(executor);
+    private final HibernateExecutor executor = new HibernateExecutor(new HibernateTestConfiguration().getSessionFactory());
+
+    private final PlayerRepository playerRepository = new HibernatePlayerRepository(executor);
+
+    private Player player = Player.builder().name("P1").build();
 
     @BeforeEach
     void setUp() {
@@ -28,7 +32,7 @@ class HibernatePlayerRepositoryTest {
 
     @Test
     void givenExistNameWhenFindByNameThenReturnPlayer() {
-        var player = playerRepository.save("P1");
+        playerRepository.save(player);
 
         var actualPlayer = playerRepository.findByName(player.getName()).get();
 
@@ -46,7 +50,7 @@ class HibernatePlayerRepositoryTest {
 
     @Test
     void whenSavePlayerThenFindById() {
-        var player = playerRepository.save("P1");
+        playerRepository.save(player);
 
         var actualPlayer = executor.executeQuery(
                 session -> session.createQuery("select p from Player p where id = :id", Player.class)

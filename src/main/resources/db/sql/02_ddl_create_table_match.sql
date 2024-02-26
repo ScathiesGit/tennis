@@ -9,3 +9,7 @@ CREATE TABLE IF NOT EXISTS Match
     id_winner INT,
     CONSTRAINT id_p1_not_equals_id_p2 CHECK (id_player_1 != Match.id_player_2)
 );
+
+--changeset s:2
+ALTER TABLE Match
+ALTER COLUMN id_winner SET NOT NULL;

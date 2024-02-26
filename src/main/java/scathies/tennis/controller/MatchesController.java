@@ -29,7 +29,7 @@ public class MatchesController {
 
     @PostMapping
     public String findMatches(@RequestParam(required = false, defaultValue = "1") Integer page,
-                              @RequestParam(required = false, defaultValue = "4") Integer pageSize,
+                              @RequestParam(required = false, defaultValue = "8") Integer pageSize,
                               @RequestParam(required = false) String name,
                               Model model) {
 

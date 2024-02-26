@@ -8,11 +8,17 @@
 <body>
 <h2>Введите имена игроков:</h2>
 <form action="/new-match" method="post">
-    <label for="p1">Имя игрока 1:</label><br>
-    <input type="text" id="p1" name="player1"><br>
-    <label for="p2">Имя игрока 2:</label><br>
-    <input type="text" id="p2" name="player2"><br><br>
+
+    <label for="player1">Имя игрока 1:
+    <input type="text" id="player1" name="player1">
+    </label><br>
+
+    <label for="player2">Имя игрока 2:
+    <input type="text" id="player2" name="player2">
+    </label><br>
+
     <input type="submit" value="Начать">
-</form>
+</form><br>
+<div style="color: red" th:if="${reason}" th:text="${reason}"></div>
 </body>
 </html>

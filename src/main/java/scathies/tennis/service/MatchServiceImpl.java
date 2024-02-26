@@ -23,13 +23,13 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public UUID create(String playerName1, String playerName2) {
+    public UUID create(String player1, String player2) {
         var id = UUID.randomUUID();
-        matches.put(
+        matches.putIfAbsent(
                 id,
                 Match.builder()
-                        .player1(handlePlayer(playerName1))
-                        .player2(handlePlayer(playerName2))
+                        .player1(handlePlayer(player1))
+                        .player2(handlePlayer(player2))
                         .build()
         );
         return id;
@@ -42,6 +42,8 @@ public class MatchServiceImpl implements MatchService {
 
     private Player handlePlayer(String name) {
         return playerRepository.findByName(name)
-                .orElseGet(() -> playerRepository.save(name));
+                .orElseGet(() -> playerRepository.save(
+                        Player.builder().name(name).build()
+                ));
     }
 }

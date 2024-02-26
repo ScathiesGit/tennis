@@ -3,8 +3,7 @@ package scathies.tennis.repository;
 import configuration.HibernateTestConfiguration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
 import scathies.tennis.model.Match;
 import scathies.tennis.model.Player;
 
@@ -13,7 +12,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class HibernateMatchRepositoryTest {
 
     private final HibernateExecutor executor = new HibernateExecutor(new HibernateTestConfiguration().getSessionFactory());
@@ -22,11 +21,11 @@ class HibernateMatchRepositoryTest {
 
     private final HibernatePlayerRepository playerRepository = new HibernatePlayerRepository(executor);
 
-    private Player player1;
+    private Player player1 = Player.builder().name("P1").build();
 
-    private Player player2;
+    private Player player2 = Player.builder().name("P2").build();
 
-    private Player player3;
+    private Player player3 = Player.builder().name("P3").build();
 
     private Match match1 = new Match();
 
@@ -37,7 +36,8 @@ class HibernateMatchRepositoryTest {
     @BeforeEach
     void setUp() {
         var matches = executor.executeQuery(
-                session -> session.createQuery("select m from Match m", Match.class).list()
+                session -> session.createQuery("select m from Match m", Match.class)
+                        .list()
         );
 
         matches.forEach(
@@ -45,13 +45,24 @@ class HibernateMatchRepositoryTest {
                         session -> session.remove(match)
                 )
         );
+
+        var players = executor.executeQuery(
+                session -> session.createQuery("select p from Player p", Player.class)
+                        .list()
+        );
+
+        players.forEach(
+                player -> executor.execute(
+                        session -> session.remove(player)
+                )
+        );
     }
 
     @Test
     void whenFindAllThenReturnAllMatches() {
-        player1 = playerRepository.save("P1");
-        player2 = playerRepository.save("P2");
-        player3 = playerRepository.save("P3");
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+        playerRepository.save(player3);
         saveMatch(match1, player1, player2, player1.getId());
         saveMatch(match2, player2, player3, player3.getId());
 
@@ -64,9 +75,9 @@ class HibernateMatchRepositoryTest {
 
     @Test
     void whenFindAllByPlayerNameThenReturnAllMatchesByName() {
-        player1 = playerRepository.save("P1");
-        player2 = playerRepository.save("P2");
-        player3 = playerRepository.save("P3");
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+        playerRepository.save(player3);
         saveMatch(match1, player1, player2, player1.getId());
         saveMatch(match2, player2, player3, player3.getId());
         saveMatch(match3, player1, player3, player3.getId());
@@ -80,8 +91,8 @@ class HibernateMatchRepositoryTest {
 
     @Test
     void givenExistPlayersWhenSaveMatchThenFindById() {
-        player1 = playerRepository.save("P1");
-        player2 = playerRepository.save("P2");
+        playerRepository.save(player1);
+        playerRepository.save(player2);
         match1.setPlayer1(player1);
         match1.setPlayer2(player2);
         match1.setIdWinner(player1.getId());
@@ -110,9 +121,9 @@ class HibernateMatchRepositoryTest {
 
     @Test
     void givenNotEmptyNameWhenNumberMatchesByNameThenReturnNumberMatchesForPlayerName() {
-        player1 = playerRepository.save("P1");
-        player2 = playerRepository.save("P2");
-        player3 = playerRepository.save("P3");
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+        playerRepository.save(player3);
         saveMatch(match1, player1, player2, player1.getId());
         saveMatch(match2, player1, player3, player3.getId());
 
@@ -123,9 +134,9 @@ class HibernateMatchRepositoryTest {
 
     @Test
     void givenEmptyNameWhenNumberMatchesThenReturnNumberAllMatches() {
-        player1 = playerRepository.save("P1");
-        player2 = playerRepository.save("P2");
-        player3 = playerRepository.save("P3");
+        playerRepository.save(player1);
+        playerRepository.save(player2);
+        playerRepository.save(player3);
         saveMatch(match1, player1, player2, player1.getId());
         saveMatch(match2, player2, player3, player3.getId());
         saveMatch(match3, player1, player3, player3.getId());

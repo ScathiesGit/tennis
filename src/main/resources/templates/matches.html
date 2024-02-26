@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Завершенные матчи</title>
+    <link rel="stylesheet" th:href="@{/matches.css}" />
 </head>
 <body>
 <h1>Поиск матчей</h1>
@@ -20,24 +21,28 @@
     <table>
         <thead>
         <tr>
-            <th>Идентификатор матча</th>
-            <th>Данные первого игрока</th>
-            <th>Данные второго игрока</th>
-            <th>Идентификатор победителя</th>
-            <th>Действия</th>
+            <th>Матч</th>
+            <th>Первый игрок</th>
+            <th>Второй игрок</th>
+            <th>Победитель</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="match : ${matchesPage.matches}">
             <td th:text="${match.id}">id match</td>
-            <td th:text="|${match.player1.name} ${match.player1.id}|">id player1</td>
-            <td th:text="${match.player2.name + ' ' + match.player2.id}">id player2</td>
-            <td th:text="${match.idWinner}">id winner</td>
+            <td th:text="${match.player1.name}">name player1</td>
+            <td th:text="${match.player2.name}">name player2</td>
+            <td th:if="${match.idWinner == match.player1.id}">
+                <span th:text="${match.player1.name}"></span>
+            </td>
+            <td th:unless="${match.idWinner == match.player1.id}">
+                <span th:text="${match.player2.name}"></span>
+            </td>
         </tr>
         </tbody>
     </table>
 
-    <div th:if="${matchesPage.totalSize != null}">
+    <div th:if="${matchesPage.totalSize}">
         <span>Страницы:</span>
         <th:block th:with="totalPages=${(matchesPage.totalSize + matchesPage.pageSize - 1) / matchesPage.pageSize}">
             <div style="display: flex;">

@@ -8,5 +8,5 @@ public interface PlayerRepository {
 
     Optional<Player> findByName(String name);
 
-    Player save(String name);
+    Player save(Player player);
 }
