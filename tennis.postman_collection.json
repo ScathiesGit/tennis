@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "4f077109-7f5d-4333-b6f5-b53b8f40fd3a",
+		"name": "tennis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31804151"
+	},
+	"item": [
+		{
+			"name": "matches",
+			"item": [
+				{
+					"name": "form for search matches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    \"return page for search matches\",\r",
+									"    function() {\r",
+									"        var responseBody = pm.response.text();\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(responseBody).to.include('<title>Завершенные матчи</title>');\r",
+									"        pm.expect(responseBody).to.include('<h1>Поиск матчей</h1>');\r",
+									"        pm.expect(responseBody).to.match(/<tbody>\\s*<\\/tbody>/);\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/matches"
+					},
+					"response": []
+				},
+				{
+					"name": "get all matches",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    'when player name is empty then return all matches',\r",
+									"    function() {\r",
+									"        var responseBody = pm.response.text();\r",
+									"        pm.response.to.have.status(200);\r",
+									"        var tbodyContent = responseBody.match('<tbody>([\\\\s\\\\S]*)<\\\\/tbody>')[0];\r",
+									"        pm.expect(tbodyContent.trim()).to.not.eql('');\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/matches"
+					},
+					"response": []
+				},
+				{
+					"name": "matches for player",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    'when player name not empty then return all matches for player',\r",
+									"    function() {\r",
+									"        var responseBody = pm.response.text();\r",
+									"        pm.response.to.have.status(200);\r",
+									"        var tbodyContent = responseBody.match(/<tbody>([\\s\\S]*?)<\\/tbody>/)[1];\r",
+									"        pm.expect(tbodyContent.trim()).to.not.eql('');\r",
+									"        var tbodyContent = responseBody.match(/<tbody>([\\s\\S]*?)<\\/tbody>/)[1];\r",
+									"    \r",
+									"        var rows = tbodyContent.split('<tr>');\r",
+									"        rows.shift();\r",
+									"        var flag = true;\r",
+									"        rows.forEach(function(row, index) {\r",
+									"        if (!row.includes('Ольга')) {\r",
+									"            flag = false;\r",
+									"        }\r",
+									"    });    \r",
+									"        pm.expect(flag).to.be.true;\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Ольга",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/matches",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"matches"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "test for /matches"
+		},
+		{
+			"name": "create new match",
+			"item": [
+				{
+					"name": "form new match",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    \"http code response should be 200\",\r",
+									"    function() {\r",
+									"        pm.response.to.have.status(200);\r",
+									"    }\r",
+									");\r",
+									"\r",
+									"pm.test(\r",
+									"  \"response body should be not empty\",\r",
+									"    function() {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(pm.response.text()).to.not.be.empty;\r",
+									"    }  \r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/new-match"
+					},
+					"response": []
+				},
+				{
+					"name": "create new match with empty names",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    \"when name is empty then bad request\",\r",
+									"    function() {\r",
+									"        pm.response.to.have.status(400);\r",
+									"        pm.expect(responseBody).to.include(\"имя игрока/ов не должно быть пустым\");\r",
+									"    }\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "player1",
+									"value": "\n",
+									"type": "text"
+								},
+								{
+									"key": "player2",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/new-match"
+					},
+					"response": []
+				},
+				{
+					"name": "create new match with the same names",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    \"when names is equals then bad request\",\r",
+									"    function() {\r",
+									"        pm.response.to.have.status(400);\r",
+									"        var responseBody = pm.response.text();\r",
+									"        pm.expect(responseBody).to.include(\"игроки не могут иметь одинаковых имен\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "player1",
+									"value": "player",
+									"type": "text"
+								},
+								{
+									"key": "player2",
+									"value": "player",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/new-match"
+					},
+					"response": []
+				},
+				{
+					"name": "create new match valid param",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\r",
+									"    \"when names is valid then return new match\",\r",
+									"    function() {\r",
+									"        pm.response.to.have.status(200);\r",
+									"        pm.expect(responseBody).to.include(\"<td>testName1</td>\");\r",
+									"        pm.expect(responseBody).to.include(\"<td>testName2</td>\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "player1",
+									"value": "testName1",
+									"type": "text"
+								},
+								{
+									"key": "player2",
+									"value": "testName2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/new-match"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "root page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\r",
+							"    \"http code response should be 200\",\r",
+							"    function() {\r",
+							"        pm.response.to.have.status(200);\r",
+							"    }\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": "http://localhost:8080/new-match"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "matchId",
+			"value": ""
+		}
+	]
+}
