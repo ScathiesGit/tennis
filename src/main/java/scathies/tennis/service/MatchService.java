@@ -1,7 +1,6 @@
 package scathies.tennis.service;
 
 import scathies.tennis.model.Match;
-import scathies.tennis.model.Player;
 
 import java.util.UUID;
 

@@ -1,7 +1,6 @@
 package scathies.tennis.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import scathies.tennis.dto.MatchesPage;
 import scathies.tennis.service.FinishedMatchService;
-import scathies.tennis.service.FinishedMatchServiceImpl;
-
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -33,7 +29,11 @@ public class MatchesController {
                               @RequestParam(required = false) String name,
                               Model model) {
 
-        model.addAttribute("matchesPage", matchesService.find(page, pageSize, name));
+        var matchesPage = (name == null || name.isEmpty())
+                ? matchesService.findAll(page, pageSize)
+                : matchesService.findAllByName(page, pageSize, name);
+
+        model.addAttribute("matchesPage", matchesPage);
         model.addAttribute("name", name);
         return "matches";
     }

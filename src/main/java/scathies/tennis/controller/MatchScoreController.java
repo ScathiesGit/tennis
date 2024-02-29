@@ -1,6 +1,5 @@
 package scathies.tennis.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,9 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import scathies.tennis.service.MatchService;
-import scathies.tennis.service.MatchServiceImpl;
 import scathies.tennis.service.ScoringService;
-import scathies.tennis.service.ScoringServiceImpl;
 
 import java.util.UUID;
 

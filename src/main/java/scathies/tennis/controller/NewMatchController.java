@@ -1,17 +1,12 @@
 package scathies.tennis.controller;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.method.MethodValidationResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.HandlerMethodValidationException;
-import scathies.tennis.model.Player;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import scathies.tennis.service.MatchService;
-import scathies.tennis.service.MatchServiceImpl;
 
 @Controller
 @RequiredArgsConstructor

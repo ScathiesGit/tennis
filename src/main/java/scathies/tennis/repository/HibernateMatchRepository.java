@@ -1,16 +1,10 @@
 package scathies.tennis.repository;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
 import scathies.tennis.model.Match;
 
 import java.util.List;
-import java.util.UUID;
-import java.util.function.Function;
 
 @Repository
 @RequiredArgsConstructor

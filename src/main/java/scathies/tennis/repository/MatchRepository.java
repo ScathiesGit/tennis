@@ -3,7 +3,6 @@ package scathies.tennis.repository;
 import scathies.tennis.model.Match;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface MatchRepository {
 

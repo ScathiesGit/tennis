@@ -1,4 +1,4 @@
-HELP.md
+﻿HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
@@ -37,7 +37,7 @@ build/
 mvnw
 mvnw.cmd
 theory.txt
-testdb.mv.db
-testdb.trace.db
+test_db.mv.db
+test_db.trace.db
 test.txt
 

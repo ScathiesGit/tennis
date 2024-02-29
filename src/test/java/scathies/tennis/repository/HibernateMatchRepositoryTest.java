@@ -39,7 +39,6 @@ class HibernateMatchRepositoryTest {
                 session -> session.createQuery("select m from Match m", Match.class)
                         .list()
         );
-
         matches.forEach(
                 match -> executor.execute(
                         session -> session.remove(match)
@@ -50,7 +49,6 @@ class HibernateMatchRepositoryTest {
                 session -> session.createQuery("select p from Player p", Player.class)
                         .list()
         );
-
         players.forEach(
                 player -> executor.execute(
                         session -> session.remove(player)

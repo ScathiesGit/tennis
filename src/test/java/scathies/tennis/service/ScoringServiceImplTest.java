@@ -1,12 +1,9 @@
 package scathies.tennis.service;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import scathies.tennis.model.Match;
 import scathies.tennis.model.Player;
 import scathies.tennis.repository.MatchRepository;
